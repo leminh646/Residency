@@ -61,7 +61,7 @@ def createIoTSystem():
     # Create the memory bus
     system.membus = SystemXBar()
     
-    # CPU setup - using AtomicSimpleCPU for low power
+    # CPU setup - using TimingSimpleCPU
     system.cpu = TimingSimpleCPU()
     
     # Add DVFS support for power management
