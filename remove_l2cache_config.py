@@ -61,10 +61,9 @@ def createIoTSystem():
     # Create the memory bus
     system.membus = SystemXBar()
     
-    # CPU setup - using AtomicSimpleCPU for low power
+    # CPU setup - using TimingSimpleCPU
     system.cpu = TimingSimpleCPU()
-    
-    # Add DVFS support for power management
+
     system.cpu_voltage_domain = VoltageDomain()
     system.cpu_clk_domain = SrcClockDomain()
     system.cpu_clk_domain.clock = '500MHz'
@@ -88,7 +87,7 @@ def createIoTSystem():
     system.cpu.icache.connectBus(system.membus)
     system.cpu.dcache.connectBus(system.membus)
     
-    # Create a memory controller - using low-power DDR3L
+    # Create a memory controller
     system.mem_ctrl = MemCtrl()
     system.mem_ctrl.dram = DDR3_1600_8x8()
     system.mem_ctrl.dram.range = system.mem_ranges[0]
