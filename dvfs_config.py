@@ -121,7 +121,6 @@ root = Root(full_system=False, system=system)
 
 # Instantiate the system
 m5.instantiate()
-
 print("Beginning simulation of IoT x86 system with low-power design")
 
 # First phase: Run at 500MHz (high performance)
@@ -142,11 +141,8 @@ print("\n[Phase 2] Changing frequency to 300MHz (power saving)...")
 system.cpu_clk_domain.clock = '300MHz'
 system.cpu_voltage_domain.voltage = '0.7V'  # Lower voltage with lower frequency
 
-# Reset stats again to measure only this phase
 m5.stats.reset()
-# Run for the same amount of simulated time
 exit_event = m5.simulate(20000000)  # 20ms
-# Dump stats for the second phase
 m5.stats.dump()
 print(f"Phase 2 completed at tick {m5.curTick()}")
 
@@ -155,11 +151,8 @@ print("\n[Phase 3] Returning to 500MHz for final phase...")
 system.cpu_clk_domain.clock = '500MHz'
 system.cpu_voltage_domain.voltage = '0.9V'
 
-# Reset stats for final phase
 m5.stats.reset()
-# Run until completion
 exit_event = m5.simulate()
-# Final stats dump
 m5.stats.dump()
 
 print(f"Exiting @ tick {m5.curTick()} because {exit_event.getCause()}")
